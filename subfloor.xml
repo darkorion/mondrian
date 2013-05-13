@@ -807,6 +807,7 @@ TYPICAL TARGET SEQUENCE
     <antcall target="maven-publish-artifact">
       <param name="publish.pomFile" value="${ivy.artifact.pomfile}" />
       <param name="publish.file" value="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar" />
+      <param name="publish.version" value="${project.revision}" />
     </antcall>
   </target>
 
@@ -817,7 +818,7 @@ TYPICAL TARGET SEQUENCE
         Creates a publishable version of the ivy dependencies file, ivy.xml
         ====================================================================-->
   <target name="ivy.deliver">
-    <ivy:deliver conf="*(public)" deliverpattern="${dist.dir}/ivy.xml" />
+    <ivy:deliver conf="*(public)" pubrevision="${project.revision}" deliverpattern="${dist.dir}/ivy.xml" />
   </target>
 
 
@@ -894,6 +895,7 @@ TYPICAL TARGET SEQUENCE
             <arg value="-DrepositoryId=${ivy.repository.id}" />
             <arg value="-Durl=${ivy.repository.publish}" />
             <arg value="-DpomFile=${publish.pomFile}" />
+            <arg value="-Dversion=${publish.version}" />
             <arg value="-Dfile=${publish.file}" />
           </exec>
         </then>
@@ -904,6 +906,7 @@ TYPICAL TARGET SEQUENCE
             <arg value="-Durl=${ivy.repository.publish}" />
             <arg value="-DpomFile=${publish.pomFile}" />
             <arg value="-Dfile=${publish.file}" />
+            <arg value="-Dversion=${publish.version}" />
           </exec>
         </else>
       </if>
